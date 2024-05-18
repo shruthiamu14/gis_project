@@ -7,7 +7,7 @@ app.use(cors());
 app.use(express.json());
 const port = 3030;
 
-const mongoURI = 'mongodb+srv://shruthiammu470:habil%40123@clusterhabil.xoixqx2.mongodb.net/gis?retryWrites=true&w=majority&appName=Clusterhabil';
+const mongoURI = process.env.MONGODB_CONNECTION_STRING;
 mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('Connected to MongoDB'))
   .catch(err => console.error('Could not connect to MongoDB...', err));
