@@ -34,7 +34,7 @@ export default function ChennaiMap() {
     // Fetch plots from backend
     const fetchPlots = async () => {
       try {
-        const response = await axios.get('http://localhost:3030/getplot');
+        const response = await axios.get('https://gis-project.onrender.com/getplot');
         setPlots(response.data);
       } catch (error) {
         console.error('Error:', error);

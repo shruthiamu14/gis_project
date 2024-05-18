@@ -17,7 +17,7 @@ function AddPlotForm() {
   const handleSubmit = async(e) => {
     e.preventDefault();
     try {
-        const res = await axios.post('http://localhost:3030/addplot', {name, roadScore, hospitalScore, metroScore, waterbodyScore,latitude, longitude} )
+        const res = await axios.post('https://gis-project.onrender.com/addplot', {name, roadScore, hospitalScore, metroScore, waterbodyScore,latitude, longitude} )
         console.log(res.data);
         setSuccessMessage('Your data is successfully saved'); // Set success message
         // Reset form fields

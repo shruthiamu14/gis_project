@@ -8,7 +8,7 @@ function ViewPlots() {
 
   useEffect(() => {
     const fetchPlots = async () => {
-      const res = await axios.get('http://localhost:3030/getplot');
+      const res = await axios.get('https://gis-project.onrender.com/getplot');
       setPlots(res.data);
     };
 
@@ -35,7 +35,7 @@ function ViewPlots() {
     const confirmDelete = window.confirm('Are you sure you want to delete this plot?');
     if (confirmDelete) {
       try {
-        const response = await axios.delete('http://localhost:3030/deleteplot', { data: { _id } });
+        const response = await axios.delete('https://gis-project.onrender.com/deleteplot', { data: { _id } });
         console.log(response.data);
         // Update the plots state
         setPlots(plots.filter(plot => plot._id !== _id));
