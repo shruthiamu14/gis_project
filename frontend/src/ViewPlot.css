@@ -1,0 +1,24 @@
+.plots-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 20px;
+}
+
+.plot-card {
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    margin: 20px;
+    padding: 20px;
+    width: 300px;
+}
+
+.plot-card h3 {
+    margin-top: 0;
+    padding: 10px;
+}
+
+.plot-card p {
+    margin-bottom: 10px;
+}
