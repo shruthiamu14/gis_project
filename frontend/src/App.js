@@ -2,7 +2,6 @@ import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import ChennaiMap from "./components/ChennaiMap";
 import "./styles.css";
-import Navbar from "./components/NavBar";
 import AdminPage from "./components/Admin";
 
 function App() {

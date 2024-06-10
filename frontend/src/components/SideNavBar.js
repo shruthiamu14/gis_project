@@ -1,10 +1,13 @@
 import React from 'react';
 
-function SideNavBar({ onAddPlotClick, onViewPlotsClick }) {
+// SideNavBar.js
+
+function SideNavBar({ onAddPlotClick, onViewPlotsClick, onAddFeatureClick }) {
   return (
-    <div className="sidenav">
-     <a href="#" className="nav-item" onClick={onAddPlotClick}>Add Plot</a>
-     <a href="#" className="nav-item" onClick={onViewPlotsClick}>View Plots</a>
+    <div className='side-nav-bar'>
+      <button onClick={onAddPlotClick}>Add Plot</button>
+      <button onClick={onViewPlotsClick}>View Plots</button>
+      <button onClick={onAddFeatureClick}>Add Feature</button> 
     </div>
   );
 }
