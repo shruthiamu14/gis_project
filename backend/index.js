@@ -61,6 +61,43 @@ app.delete('/deleteplot',async(req,res)=>{
     }
 })
 
+
+
+// Add feature
+app.post('/addfeature', async(req,res) => {
+    const {name, category, latitude, longitude} = req.body;
+    const newFeature = new Feature({name, category, latitude, longitude});
+    try{
+        await newFeature.save();
+        res.status(201).send(newFeature);
+    }catch(err){
+        res.status(400).send(err);
+    }
+})
+
+// Get all features
+app.get('/getfeature', async(req,res) => {
+    try{
+        const feature = await Feature.find({});
+        res.status(200).send(feature);
+    }
+    catch(err){
+        res.status(400).send(err);
+    }
+})
+
+// Get features by category
+app.get('/getfeature/:category', async(req,res) => {
+    try{
+        const feature = await Feature.find({category: req.params.category});
+        res.status(200).send(feature);
+    }
+    catch(err){
+        res.status(400).send(err);
+    }
+})
+
+
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
