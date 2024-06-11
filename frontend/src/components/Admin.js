@@ -3,23 +3,33 @@
 import React, { useState } from 'react';
 import SideNavBar from './SideNavBar';
 import AddPlotForm from './AddPlot';
-import ViewPlots from './ViewPlots'; // New component
-import AddFeatureForm from './AddFeature'; // Import the new component
+import ViewPlots from './ViewPlots';
+import AddFeatureForm from './AddFeature';
+import UploadExcel from './UploadExcel';
+import "../styles.css";
 
 function AdminPage() {
   const [activeTab, setActiveTab] = useState('add');
 
   return (
-    <div className='admin-container'>
-      <h2>Admin Page</h2>
-      <SideNavBar 
-        onAddPlotClick={() => setActiveTab('add')} 
-        onViewPlotsClick={() => setActiveTab('view')}
-        onAddFeatureClick={() => setActiveTab('feature')} // New prop
-      />
-      {activeTab === 'add' && <AddPlotForm />}
-      {activeTab === 'view' && <ViewPlots />}
-      {activeTab === 'feature' && <AddFeatureForm />} 
+    <div className="admin-page">
+      <header className="admin-header">
+        <h2>Admin Page</h2>
+      </header>
+      <main className="admin-main">
+        <SideNavBar 
+          onAddPlotClick={() => setActiveTab('add')} 
+          onViewPlotsClick={() => setActiveTab('view')}
+          onAddFeatureClick={() => setActiveTab('feature')}
+          onUploadExcelClick={() => setActiveTab('excel')}
+        />
+        <section className="admin-content">
+          {activeTab === 'add' && <AddPlotForm />}
+          {activeTab === 'view' && <ViewPlots />}
+          {activeTab === 'feature' && <AddFeatureForm />} 
+          {activeTab === 'excel' && <UploadExcel />} 
+        </section>
+      </main>
     </div>
   );
 }

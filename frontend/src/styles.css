@@ -4,7 +4,9 @@
     margin: 0;
     padding: 0;
   }
-  
+  body {
+    overflow-x: hidden;
+  }
   .map {
     height: 100vh;
     align-items: center;
@@ -360,4 +362,63 @@ button:hover {
 .plot-card button:last-child {
   margin-right: 0;
 }
+/* AdminPage.css */
+.admin-page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
 
+.admin-header {
+  padding: 20px;
+  background-color: #2c3e50;
+  color: #fff;
+}
+
+.admin-main {
+  display: flex;
+  flex: 1;
+}
+
+.admin-main .side-nav-bar {
+  width: 200px;
+  border-right: 1px solid #ccc;
+}
+
+.admin-main .admin-content {
+  flex: 1;
+  padding: 20px;
+  overflow: auto;
+}
+
+/* SideNavBar.css */
+.side-nav-bar button {
+  display: block;
+  margin-bottom: 10px;
+  padding: 10px;
+  background-color: #2c3e50;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+}
+
+.side-nav-bar button:hover {
+  background-color: #0056b3;
+}
+
+.excel-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.excel-table th, .excel-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.excel-table th {
+  background-color: #4CAF50;
+  color: white;
+}
