@@ -1,368 +1,65 @@
+/* styles.css */
 
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
-  body {
-    overflow-x: hidden;
-  }
-  .map {
-    height: 100vh;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    font-family: sans-serif;
-    color: #333;
-    background-color: #f3e4d7;
-  }
+/* General Styles */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f2f5;
+  margin: 0;
+  padding: 0;
+}
 
-  .leaflet-container {
-    height: 90vh;
-    width: 90%;
-    margin-left: 4pc;
-    border-radius: 2rem;
-  }
-  
-  .cluster-icon {
-    background-color: #333;
-    height: 2em;
-    width: 2em;
-    color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    font-size: 1.2rem;
-    box-shadow: 0 0 0px 5px #fff;
-  }
+h1, h2, h3 {
+  color: #333;
+}
 
-  /* navbar */
+button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+input[type="text"], input[type="number"], input[type="password"], select {
+  width: 100%;
+  padding: 8px;
+  margin: 6px 0;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Navbar Styles */
 .navbar {
+  background-color: #343a40;
+  color: white;
+  padding: 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 10px;
-  padding: 15px 20px;
-  background-color: #127c7d;
-  color: white;
 }
 
 .navbar-heading {
-  margin-right: auto; /* Move the heading to the left */
-}
-
-.buttons {
-  display: flex; /* Change to flex */
+  margin: 0;
 }
 
 .buttons button {
-  margin-left: 10px; /* Adjust margin between buttons */
+  background-color: #28a745;
+  margin: 0 5px;
 }
 
-button {
-  background-color: #4CAF50;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+.buttons button:hover {
+  background-color: #218838;
 }
 
-button.close-btn {
-  background-color: #f44336;
-}
-
-button:hover {
-  background-color: #45a049;
-}
-
-button.close-btn:hover {
-  background-color: #d32f2f;
-}
-
-
- /* Form.css */
-
-.form-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100vh;
-  height: 100vh;
-}
-
-.login-form {
-  background-color: #ffffff;
-  padding: 60px;
-  border-radius: 8px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-  margin-right: 550px;
-  margin-left: 100px;
-  margin-bottom: 8pc;
-  width: 300px;
-}
-
-.login-form h2 {
-  margin-right: 700px;
-  margin-bottom: 30px;
-  color: #fff;
-  font-weight: 600;
-}
-
-.form-group {
-  margin-bottom: 30px;
-}
-
-.form-group label {
-  display: block;
-  margin-bottom: 5px;
-  color: #333;
-}
-
-.form-group input {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  transition: border-color 0.3s;
-}
-
-.form-group input:focus {
-  outline: none;
-  border-color: #1d6e6d; /* Change border color on focus */
-}
-
-button[type="submit"],
-button.close-btn {
-  width: 100%;
-  padding: 10px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-button[type="submit"] {
-  background-color: #1d6e6d;
-  color: white;
-}
-
-button[type="submit"]:hover {
-  background-color: #156b6a;
-}
-
-button.close-btn {
-  background-color: #f44336;
-  color: white;
-}
-
-button.close-btn:hover {
-  background-color: #d32f2f;
-}
-
-  
-  /* height of the container */
-  .leaflet-container {
-    height: 90vh;
-    width: 90%;
-    border-radius: 2rem;
-  }
-  
-  .cluster-icon {
-    background-color: #333;
-    height: 2em;
-    width: 2em;
-    color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    font-size: 1.2rem;
-    box-shadow: 0 0  3px #fff;
-  }
-
-  .search-container {
-    max-width: 600px; /* Limit the width */
-    width: 100%; /* Take up full width up to the max-width */
-    margin: 0 auto; /* Center the element */
-    padding: 1em;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #f5f5f5;
-    border-radius: 50px;
-    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
-  }
-  
-  .search-container input[type="text"] {
-    flex: 2;
-    padding: 0.5em; /* Adjust padding for better alignment */
-    border: none;
-    border-radius: 25px; /* Adjust border radius to match the container */
-    outline: none;
-    font-size: 1.2em; /* Adjust font size for better readability */
-    color: #333; /* Darker text color for better contrast */
-  }
-  
-  .search-container button {
-    flex: 1;
-    padding: 0.7em 1.5em;
-    border: none;
-    border-radius: 50px; /* Match border radius of the container */
-    background-color: #007BFF; /* Brighter background color for better visibility */
-    color: #fff;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    font-weight: bold; /* Bold text for better visibility */
-  }
-  
-  .search-container button:hover {
-    background-color: #0056b3; /* Darker background color on hover for better interaction feedback */
-  }
-
-  /* AdminPage.css */
-
-.admin-container {
-  display: flex;
-}
-
-h2 {
-  margin-left: 700px;
-}
-
-/* SideNavBar.css */
-
-.sidenav {
-  height: 100%;
-  width: 400px;
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  left: 0;
-  background-color: #2c3e50; /* Dark background color */
-  overflow-x: hidden;
-  padding-top: 20px;
-}
-
-.nav-item {
-  padding: 15px 20px;
-  text-decoration: none;
-  font-size: 19px;
-  color: #fff; /* White text color */
-  display: block;
-  transition: background-color 0.3s;
-}
-
-.nav-item.top {
-  margin-top: 5pc;
-  margin-bottom: 10px;
-}
-
-.nav-item:hover {
-  background-color: #34495e; /* Darker background color on hover */
-}
-
-/* AddPlotForm.css */
-
-.add-plot-form{
- 
-  margin: 20px auto;
-  margin-right: 600px;
-  margin-top: 400px;
-  padding: 10px;
-  background-color: #fff;
-  border-radius: 8px;
-  margin-top: 30px;
-  width: 2000px;
-  box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
-}
-
-.add-plot-form h3 {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.form-group {
-  margin-bottom: 20px;
-}
-
-label {
-  display: block;
-  margin-bottom: 5px;
-}
-
-input[type="text"],
-input[type="number"] {
-  width: 100%;
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-button {
-  background-color: #4CAF50;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  width: 100%;
-}
-
-button:hover {
-  background-color: #45a049;
-}
-
-/* PlotCard.css */
-.plots-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  margin-top: 100px;
-  margin-left: -300px;
-}
-
-.plot-card {
-  flex: 0 0 calc(30% - 20px); /* Adjust the width as needed */
-  background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  margin-bottom: 20px;
-}
-
-.plot-card h3 {
-  margin-bottom: 10px;
-  color: #333;
-}
-
-.plot-card p {
-  margin-bottom: 5px;
-  color: #666;
-}
-
-.plot-card button {
-  padding: 8px 15px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  background-color: #1d6e6d;
-  color: #fff;
-  margin-right: 10px;
-}
-
-.plot-card button:hover {
-  background-color: #156b6a;
-}
-
-.plot-card button:last-child {
-  margin-right: 0;
-}
-/* AdminPage.css */
+/* Admin Page Styles */
 .admin-page {
   display: flex;
   flex-direction: column;
@@ -370,9 +67,10 @@ button:hover {
 }
 
 .admin-header {
+  background-color: #343a40;
+  color: white;
   padding: 20px;
-  background-color: #2c3e50;
-  color: #fff;
+  text-align: center;
 }
 
 .admin-main {
@@ -380,37 +78,49 @@ button:hover {
   flex: 1;
 }
 
-.admin-main .side-nav-bar {
+.side-nav-bar {
+  background-color: #f8f9fa;
+  padding: 20px;
   width: 200px;
-  border-right: 1px solid #ccc;
 }
 
-.admin-main .admin-content {
+.admin-content {
   flex: 1;
   padding: 20px;
-  overflow: auto;
+  background-color: #ffffff;
 }
 
-/* SideNavBar.css */
 .side-nav-bar button {
   display: block;
-  margin-bottom: 10px;
-  padding: 10px;
-  background-color: #2c3e50;
-  color: #fff;
-  border: none;
-  cursor: pointer;
   width: 100%;
-  text-align: left;
+  margin-bottom: 10px;
 }
 
-.side-nav-bar button:hover {
-  background-color: #0056b3;
+/* Form Styles */
+.form-container {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.add-plot-form, .add-feature-form {
+  max-width: 500px;
+  margin: auto;
 }
 
 .excel-table {
   width: 100%;
   border-collapse: collapse;
+}
+
+.excel-table tr:nth-child(even) {
+  background-color: #f2f2f2;
 }
 
 .excel-table th, .excel-table td {
@@ -419,6 +129,120 @@ button:hover {
 }
 
 .excel-table th {
-  background-color: #4CAF50;
+  background-color: #4caf50;
   color: white;
+  text-align: center;
+}
+
+/* Plot Cards */
+.plots-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.plot-card {
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: calc(33.333% - 20px);
+}
+
+.plot-card h3 {
+  margin-top: 0;
+}
+
+/* Map Styles */
+.leaflet-container {
+  height: 500px;
+  width: 100%;
+  margin-top: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.search-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.search-container input {
+  padding: 10px;
+  width: 200px;
+  margin-right: 10px;
+}
+
+.search-container button {
+  padding: 10px 20px;
+}
+
+/* Cluster Icon Styles */
+.custom-marker-cluster {
+  background: rgba(51, 136, 255, 0.6);
+  border: 2px solid #3388ff;
+  border-radius: 50%;
+  color: white;
+  text-align: center;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 30px;
+  width: 30px;
+  height: 30px;
+}
+
+/* Popup Form Styles */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  position: relative;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.close-btn:hover {
+  background-color: #c82333;
+}
+
+/* Close Icon Styles */
+.close-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 20px;
+  cursor: pointer;
+  color: #dc3545;
+}
+
+.close-icon:hover {
+  color: #c82333;
 }

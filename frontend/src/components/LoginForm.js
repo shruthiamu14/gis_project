@@ -5,6 +5,7 @@ const LoginForm = ({ onClose }) => {
   return (
     <div className="form-container">
       <div className="login-form">
+        <span className="close-icon" onClick={onClose}>&times;</span>
         <h2>Login</h2>
         <form>
           <div className="form-group">
@@ -17,7 +18,6 @@ const LoginForm = ({ onClose }) => {
           </div>
           <button type="submit">Login</button>
         </form>
-        <button className="close-btn" onClick={onClose}>Close</button>
       </div>
     </div>
   );
