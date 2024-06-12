@@ -177,7 +177,6 @@ input[type="text"], input[type="number"], input[type="password"], select {
   width: 100%;
   height: calc(100vh - 150px); /* Adjust height as needed */
   overflow: hidden;
-  margin-top: 10px;
   border: 1px solid #ddd;
   border-radius: 8px;
 }
