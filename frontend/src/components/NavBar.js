@@ -1,5 +1,5 @@
 // Navbar.js
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import LoginForm from './LoginForm';
 import SignupForm from './SignupForm';
 
@@ -22,11 +22,11 @@ const Navbar = () => {
     setShowSignup(false);
   };
 
-  const handleOutsideClick = (e) => {
+  const handleOutsideClick = useCallback((e) => {
     if (e.target.classList.contains('modal')) {
       handleCloseForms();
     }
-  };
+  }, []);
 
   useEffect(() => {
     if (showLogin || showSignup) {
@@ -38,7 +38,7 @@ const Navbar = () => {
     return () => {
       document.removeEventListener('click', handleOutsideClick);
     };
-  }, [showLogin, showSignup]);
+  }, [showLogin, showSignup, handleOutsideClick]);
 
   return (
     <div className="navbar">
