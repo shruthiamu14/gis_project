@@ -29,6 +29,8 @@ export default function ChennaiMap() {
   const [searchedMarker, setSearchedMarker] = useState(null);
   const [mapCenter, setMapCenter] = useState([13.8566, 80.3522]);
   const [plots, setPlots] = useState([]);
+  const [features, setFeatures] = useState([]);
+
 
   useEffect(() => {
     // Fetch plots from backend
@@ -42,6 +44,20 @@ export default function ChennaiMap() {
     };
 
     fetchPlots();
+  }, []);
+
+  useEffect(() => {
+    // Fetch plots from backend
+    const fetchFeatures = async () => {
+      try {
+        const response = await axios.get('https://gis-project.onrender.com/getfeatures');
+        setFeatures(response.data);
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+
+    fetchFeatures();
   }, []);
 
   useEffect(() => {
@@ -111,6 +127,12 @@ export default function ChennaiMap() {
     <Popup> {"Name :" + plot.name} <br /> {"HabilScore :" + plot.habilScore}</Popup>
   </Marker>
 ))}
+        {features.map((feature) => (
+  <Marker position={[feature.latitude, feature.longitude]} icon={customIcon}>
+    <Popup> {"Name :" + feature.name} <br /> {"category :" + feature.category} </Popup>
+  </Marker>
+))}
+
 
          {/* Display the searched marker */}
          {searchedMarker && (
@@ -122,6 +144,7 @@ export default function ChennaiMap() {
       
       </MarkerClusterGroup>
     </MapContainer>
+    
     </div>
   );
 }
