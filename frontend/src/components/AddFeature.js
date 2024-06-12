@@ -12,7 +12,7 @@ function AddFeatureForm() {
   const handleSubmit = async(e) => {
     e.preventDefault();
     try {
-        const res = await axios.post('http://localhost:3030/addfeature', {name, category, latitude, longitude} )
+        const res = await axios.post('https://gis-project.onrender.com/addfeature', {name, category, latitude, longitude} )
         console.log(res.data);
         // Reset form fields
         setName('');
