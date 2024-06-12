@@ -50,7 +50,7 @@ export default function ChennaiMap() {
     // Fetch plots from backend
     const fetchFeatures = async () => {
       try {
-        const response = await axios.get('https://gis-project.onrender.com/getfeatures');
+        const response = await axios.get('https://gis-project.onrender.com/getfeature');
         setFeatures(response.data);
       } catch (error) {
         console.error('Error:', error);

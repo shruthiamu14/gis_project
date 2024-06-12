@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const Plot = require('./Model/habil');
+const Feature = require('./Model/feature');
 const cors = require('cors');
 const app = express();
 app.use(cors());
