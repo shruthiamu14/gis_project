@@ -6,7 +6,7 @@ import axios from "axios";
 import { useMap } from 'react-leaflet';
 import { useState, useEffect } from 'react';
 import Navbar from "./NavBar";
-
+import LayerControl from './LayerControl';
 
 // create custom icon
 const customIcon = new Icon({
@@ -23,14 +23,18 @@ const createClusterCustomIcon = function (cluster) {
   });
 };
 
-
 export default function ChennaiMap() {
   const [pincode, setPincode] = useState("");
   const [searchedMarker, setSearchedMarker] = useState(null);
   const [mapCenter, setMapCenter] = useState([13.8566, 80.3522]);
   const [plots, setPlots] = useState([]);
   const [features, setFeatures] = useState([]);
-
+  const [layers, setLayers] = useState({
+    Plots: true,
+    Features: true,
+    ExcelSheets: true
+  });
+  const [excelData, setExcelData] = useState([]);
 
   useEffect(() => {
     // Fetch plots from backend
@@ -47,7 +51,7 @@ export default function ChennaiMap() {
   }, []);
 
   useEffect(() => {
-    // Fetch plots from backend
+    // Fetch features from backend
     const fetchFeatures = async () => {
       try {
         const response = await axios.get('https://gis-project.onrender.com/getfeature');
@@ -58,6 +62,20 @@ export default function ChennaiMap() {
     };
 
     fetchFeatures();
+  }, []);
+
+  useEffect(() => {
+    // Fetch Excel data from backend
+    const fetchExcelData = async () => {
+      try {
+        const response = await axios.get('https://gis-project.onrender.com/layers');
+        setExcelData(response.data);
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+
+    fetchExcelData();
   }, []);
 
   useEffect(() => {
@@ -84,68 +102,68 @@ export default function ChennaiMap() {
       console.error('Error:', error);
     }
   };
+
   const ChangeView = ({ center }) => {
     const map = useMap();
     map.setView(center, map.getZoom());
     return null;
-  }
+  };
+
+  const handleToggleLayer = (layerName, isVisible) => {
+    setLayers(prevLayers => ({
+      ...prevLayers,
+      [layerName]: isVisible
+    }));
+  };
 
   return (
-
-    
-
     <div id="app-container">
-      <Navbar/>
-    <div className="search-container">
-      <input
-        type="text"
-        placeholder="Enter Pincode"
-        value={pincode}
-        onChange={(e) => setPincode(e.target.value)}
-      />
-      
-      <button onClick={() => handleSearch(pincode)}>Search</button>
-
-    </div>
-
-    <MapContainer className="leaflet-container" center={mapCenter} zoom={13}>
-      <ChangeView center={mapCenter} />
-      {/* OPEN STREEN MAPS TILES */}
-      <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
-      
-
-      <MarkerClusterGroup
-        chunkedLoading
-        iconCreateFunction={createClusterCustomIcon}
-      >
-        {/* Mapping through the markers */}
-        {plots.map((plot) => (
-  <Marker position={[plot.latitude, plot.longitude]} icon={customIcon}>
-    <Popup> {"Name :" + plot.name} <br /> {"HabilScore :" + plot.habilScore}</Popup>
-  </Marker>
-))}
-        {features.map((feature) => (
-  <Marker position={[feature.latitude, feature.longitude]} icon={customIcon}>
-    <Popup> {"Name :" + feature.name} <br /> {"category :" + feature.category} </Popup>
-  </Marker>
-))}
-
-
-         {/* Display the searched marker */}
-         {searchedMarker && (
+      <Navbar />
+      <div className="search-container">
+        <input
+          type="text"
+          placeholder="Enter Pincode"
+          value={pincode}
+          onChange={(e) => setPincode(e.target.value)}
+        />
+        <button onClick={() => handleSearch(pincode)}>Search</button>
+      </div>
+      <MapContainer className="leaflet-container" center={mapCenter} zoom={13}>
+        <ChangeView center={mapCenter} />
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+        <MarkerClusterGroup
+          chunkedLoading
+          iconCreateFunction={createClusterCustomIcon}
+        >
+          {layers.Plots && plots.map((plot) => (
+            <Marker position={[plot.latitude, plot.longitude]} icon={customIcon} key={plot._id}>
+              <Popup> {"Name :" + plot.name} <br /> {"HabilScore :" + plot.habilScore}</Popup>
+            </Marker>
+          ))}
+          {layers.Features && features.map((feature) => (
+            <Marker position={[feature.latitude, feature.longitude]} icon={customIcon} key={feature._id}>
+              <Popup> {"Name :" + feature.name} <br /> {"Category :" + feature.category} </Popup>
+            </Marker>
+          ))}
+          {layers.ExcelSheets && excelData.map((layer) => (
+            layer.data.map((point, index) => (
+              <Marker position={[point.latitude, point.longitude]} icon={customIcon} key={`${layer._id}-${index}`}>
+                <Popup> {"Name :" + point.name} <br /> {"Score :" + point.score}</Popup>
+              </Marker>
+            ))
+          ))}
+          {searchedMarker && (
             <Marker position={searchedMarker} icon={customIcon}>
               <Popup>Pincode Location</Popup>
             </Marker>
           )}
-
+        </MarkerClusterGroup>
+        <LayerControl layers={layers} onToggleLayer={handleToggleLayer} />
+      </MapContainer>
       
-      </MarkerClusterGroup>
-    </MapContainer>
-    
     </div>
   );
 }
-
