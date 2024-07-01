@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
-import { Button, Checkbox, Menu, MenuItem } from '@mui/material';
+import React from 'react';
+import Checkbox from '@mui/material/Checkbox';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormGroup from '@mui/material/FormGroup';
+import Button from '@mui/material/Button';
+import Popover from '@mui/material/Popover';
 
-const LayerControl = ({ layers, onToggleLayer }) => {
-  const [anchorEl, setAnchorEl] = useState(null);
-  const [selectedLayers, setSelectedLayers] = useState(Object.keys(layers));
+const LayerControl = ({ layers, onToggle }) => {
+  const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -13,32 +16,44 @@ const LayerControl = ({ layers, onToggleLayer }) => {
     setAnchorEl(null);
   };
 
-  const handleToggle = (layerName) => {
-    const updatedLayers = selectedLayers.includes(layerName)
-      ? selectedLayers.filter((name) => name !== layerName)
-      : [...selectedLayers, layerName];
-    
-    setSelectedLayers(updatedLayers);
-    onToggleLayer(layerName, updatedLayers.includes(layerName));
-  };
+  const open = Boolean(anchorEl);
+  const id = open ? 'simple-popover' : undefined;
 
   return (
-    <div style={{ position: 'absolute', top: 10, right: 10, zIndex: 1000 }}>
-      <Button variant="contained" color="primary" onClick={handleClick}>
+    <div style={{ position: 'absolute', top: 10, right: 10 }}>
+      <Button variant="contained" onClick={handleClick}>
         Layers
       </Button>
-      <Menu
+      <Popover
+        id={id}
+        open={open}
         anchorEl={anchorEl}
-        open={Boolean(anchorEl)}
         onClose={handleClose}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'right',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
       >
-        {Object.keys(layers).map((layerName) => (
-          <MenuItem key={layerName} onClick={() => handleToggle(layerName)}>
-            <Checkbox checked={selectedLayers.includes(layerName)} />
-            {layerName}
-          </MenuItem>
-        ))}
-      </Menu>
+        <FormGroup>
+          {Object.keys(layers).map((layerName) => (
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={layers[layerName]}
+                  onChange={() => onToggle(layerName)}
+                  name={layerName}
+                />
+              }
+              label={layerName}
+              key={layerName}
+            />
+          ))}
+        </FormGroup>
+      </Popover>
     </div>
   );
 };

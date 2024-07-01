@@ -1,12 +1,13 @@
+import React, { useState, useEffect } from 'react';
 import "leaflet/dist/leaflet.css";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import MarkerClusterGroup from "react-leaflet-cluster";
 import { Icon, divIcon, point } from "leaflet";
 import axios from "axios";
 import { useMap } from 'react-leaflet';
-import { useState, useEffect } from 'react';
 import Navbar from "./NavBar";
 import LayerControl from './LayerControl';
+import UploadForm from './UploadForm';
 
 // create custom icon
 const customIcon = new Icon({
@@ -78,12 +79,16 @@ export default function ChennaiMap() {
     fetchExcelData();
   }, []);
 
-  useEffect(() => {
-    // Update the map center when searchedMarker changes
-    if (searchedMarker) {
-      setMapCenter(searchedMarker);
-    }
-  }, [searchedMarker]);
+  const handleLayerToggle = (layerName) => {
+    setLayers(prevLayers => ({
+      ...prevLayers,
+      [layerName]: !prevLayers[layerName]
+    }));
+  };
+
+  const handleFileUpload = (newLayer) => {
+    setExcelData(prevData => [...prevData, newLayer]);
+  };
 
   const handleSearch = async (pincode) => {
     const url = `https://api.opencagedata.com/geocode/v1/json?q=${pincode}&key=${process.env.REACT_APP_OPENCAGE_API_KEY}`;
@@ -109,13 +114,6 @@ export default function ChennaiMap() {
     return null;
   };
 
-  const handleToggleLayer = (layerName, isVisible) => {
-    setLayers(prevLayers => ({
-      ...prevLayers,
-      [layerName]: isVisible
-    }));
-  };
-
   return (
     <div id="app-container">
       <Navbar />
@@ -128,30 +126,32 @@ export default function ChennaiMap() {
         />
         <button onClick={() => handleSearch(pincode)}>Search</button>
       </div>
+      {/* <UploadForm onUpload={handleFileUpload} /> */}
       <MapContainer className="leaflet-container" center={mapCenter} zoom={13}>
         <ChangeView center={mapCenter} />
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
+        <LayerControl layers={layers} onToggle={handleLayerToggle} />
         <MarkerClusterGroup
           chunkedLoading
           iconCreateFunction={createClusterCustomIcon}
         >
           {layers.Plots && plots.map((plot) => (
-            <Marker position={[plot.latitude, plot.longitude]} icon={customIcon} key={plot._id}>
-              <Popup> {"Name :" + plot.name} <br /> {"HabilScore :" + plot.habilScore}</Popup>
+            <Marker key={plot._id} position={[plot.latitude, plot.longitude]} icon={customIcon}>
+              <Popup>{"Name :" + plot.name} <br /> {"HabilScore :" + plot.habilScore}</Popup>
             </Marker>
           ))}
           {layers.Features && features.map((feature) => (
-            <Marker position={[feature.latitude, feature.longitude]} icon={customIcon} key={feature._id}>
-              <Popup> {"Name :" + feature.name} <br /> {"Category :" + feature.category} </Popup>
+            <Marker key={feature._id} position={[feature.latitude, feature.longitude]} icon={customIcon}>
+              <Popup>{"Name :" + feature.name} <br /> {"category :" + feature.category}</Popup>
             </Marker>
           ))}
           {layers.ExcelSheets && excelData.map((layer) => (
             layer.data.map((point, index) => (
-              <Marker position={[point.latitude, point.longitude]} icon={customIcon} key={`${layer._id}-${index}`}>
-                <Popup> {"Name :" + point.name} <br /> {"Score :" + point.score}</Popup>
+              <Marker key={`${layer.name}-${index}`} position={[point.latitude, point.longitude]} icon={customIcon}>
+                <Popup>{"Name :" + point.name} <br /> {"Score :" + point.score}</Popup>
               </Marker>
             ))
           ))}
@@ -161,9 +161,7 @@ export default function ChennaiMap() {
             </Marker>
           )}
         </MarkerClusterGroup>
-        <LayerControl layers={layers} onToggleLayer={handleToggleLayer} />
       </MapContainer>
-      
     </div>
   );
 }

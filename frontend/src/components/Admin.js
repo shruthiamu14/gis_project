@@ -5,7 +5,7 @@ import SideNavBar from './SideNavBar';
 import AddPlotForm from './AddPlot';
 import ViewPlots from './ViewPlots';
 import AddFeatureForm from './AddFeature';
-import UploadExcel from './UploadExcel';
+import UploadForm from './UploadForm';
 import "../styles.css";
 
 function AdminPage() {
@@ -27,7 +27,7 @@ function AdminPage() {
           {activeTab === 'add' && <AddPlotForm />}
           {activeTab === 'view' && <ViewPlots />}
           {activeTab === 'feature' && <AddFeatureForm />} 
-          {activeTab === 'excel' && <UploadExcel />} 
+          {activeTab === 'excel' && <UploadForm />} 
         </section>
       </main>
     </div>
